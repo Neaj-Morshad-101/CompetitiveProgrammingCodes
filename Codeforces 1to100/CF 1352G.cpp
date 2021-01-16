@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        if(n<=3)
+        {
+            cout<<"-1"<<endl;
+            continue;
+        }
+
+        int temp=n;
+
+        if(!(n&1))
+        {
+           temp--;
+        }
+
+        for(int i=temp; i>=1 ; i-=2)
+        {
+            cout<<i<<" ";
+        }
+
+
+        cout<<"4 2";
+
+        for(int i=6 ; i<=n; i+=2)
+        {
+            cout<<" "<<i;
+        }
+        cout<<endl;
+
+
+    }
+}
