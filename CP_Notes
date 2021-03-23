@@ -1,3 +1,8 @@
 Neaj Morshad's All Notes of Competitive Programming...
 
 
+Xor Properties
+
+if a ^ b = c 
+then a^c = b 
+and  b^c = a 
