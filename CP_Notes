@@ -3,6 +3,10 @@ Neaj Morshad's All Notes of Competitive Programming...
 
 Xor Properties
 
+ a ^ a = 0
+ a ^ 0 = a
+
+
 if a ^ b = c 
 then a^c = b 
 and  b^c = a 
