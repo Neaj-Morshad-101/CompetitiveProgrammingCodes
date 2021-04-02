@@ -10,3 +10,20 @@ Xor Properties
 if a ^ b = c 
 then a^c = b 
 and  b^c = a 
+
+
+
+Euler Totient Properties
+
+1. phi(m*n) = phi(m) * phi(n)
+2. d occurs as gcd(i, N) exactly phi(N/d) times for each i form 1 to N
+3. phi(n) repeats periodically 
+ex: 
+numbers that are coprime to 6 ( gcd(i, 6)=1 ) is,  
+*1 2 3 4 *5 6 || *7 8 9 10 *11 12 || .......
+
+4. For all d such that d|n , SUM(phi(d)) = n
+
+5. For n > 2, phi(n) is always even. 
+6. sum of integers that are coprime to n equals to (phi(n) * n)/2
+
