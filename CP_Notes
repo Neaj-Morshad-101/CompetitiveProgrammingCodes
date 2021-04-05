@@ -31,3 +31,12 @@ numbers that are coprime to 6 ( gcd(i, 6)=1 ) is,
 Euler's Theorem :    a^phi(n) % n = 1  if a and n are co-prime. 
 Fermat's Theorem:    a^(p-1) % p = 1  if a and p are co-prime and p is prime.
 
+Existence of Modular Inverse
+Modular Inverse of A with respect to M , that is X = A^-1  (mod M) exists if and only if A and M are coprime.
+
+A^phi(M) = 1 (mod M) 
+A^(phi(M)-1) = A^-1 (mod M) = X = Mod Inverse of A.
+if M is prime then phi(M) = M - 1 
+So A^(M-2) (mod M) = A^-1 (mod M) = X   (if and only if M is PRIME)
+
+
