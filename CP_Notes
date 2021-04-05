@@ -40,3 +40,10 @@ if M is prime then phi(M) = M - 1
 So A^(M-2) (mod M) = A^-1 (mod M) = X   (if and only if M is PRIME)
 
 
+
+<--GRAPH THEORY--> 
+BFS: 
+   for any node u and v in bfs queue |dis[u]-dis[v]|<=1      (0, 1)
+   
+
+
