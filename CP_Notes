@@ -1,7 +1,7 @@
 Neaj Morshad's All Notes of Competitive Programming...
 
 
-Xor Properties
+<-- Xor Properties -->
 
  a ^ a = 0
  a ^ 0 = a
@@ -12,6 +12,7 @@ then a^c = b
 and  b^c = a 
 
 
+<-- NUMBER THEORY -->
 
 Euler Totient Properties
 
@@ -26,4 +27,7 @@ numbers that are coprime to 6 ( gcd(i, 6)=1 ) is,
 
 5. For n > 2, phi(n) is always even. 
 6. sum of integers that are coprime to n equals to (phi(n) * n)/2
+
+Euler's Theorem :    a^phi(n) % n = 1  if a and n are co-prime. 
+Fermat's Theorem:    a^(p-1) % p = 1  if a and p are co-prime and p is prime.
 
