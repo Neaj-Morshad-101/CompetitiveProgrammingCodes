@@ -8,7 +8,9 @@ unsigned char is very faster than int / short int
 you can use it for numeric input / ouput with the format specifier %hhu    
 sample unsigned char arr[200000]; 
 for(int i=0; i<n; i++) scanf("%hhu", &arr[i]);  printf("%hhu ", arr[i]);
-/// works for 0 <=arr[i] <= 255 
+/// works for 0 <=arr[i] <= 255    this code GOT TLE with short int / int  declaration see-> https://codeforces.com/contest/911/submission/113563731
+
+Array global declaration is very faster than the local declaration    this code GOT TLE with local declaration see-> https://codeforces.com/contest/911/submission/113563731
 
 
 
