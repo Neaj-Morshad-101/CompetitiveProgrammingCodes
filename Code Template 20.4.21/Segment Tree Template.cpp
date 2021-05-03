@@ -22,12 +22,19 @@ const int mod = 1000000007;//1e9+7;
 ///program starts...........
 
 
-int n, d;
+#define Left (node*2)
+#define Right (node*2+1)
+#define Mid ((b+e)/2)
+
+
+int n;
 ll arr[mxn+2];
 
 ll tree[4*mxn]; // for N size arary segment tree contains 2N-1 nodes if N is a power of 2. so max size will be 4*N (we need to make N a power of 2)
+ll lazy[mxn*4];
 
 //Merge complexity will be multiplied by each of the complexity of build, update and query
+//Merging Two Nodes Data
 ll Merge(ll a, ll b)
 {
     return max(a,b); /// *** may change depending on the problem...
@@ -36,20 +43,17 @@ ll Merge(ll a, ll b)
 //O(N*log(N))
 void build(int node, int b, int e) //current node and node's range (begin to end)
 {
+    lazy[node] = 0;  /// *** may change depending on the problem...
     if(b==e)
     {
         tree[node] = arr[b];
         return;
     }
 
-    int mid = (b+e)/2;
-    int left = 2*node;
-    int right = left + 1;
+    build(Left, b, Mid);
+    build(Right, Mid+1, e);
 
-    build(left, b, mid);
-    build(right, mid+1, e);
-
-    tree[node] = Merge(tree[left], tree[right]);
+    tree[node] = Merge(tree[Left], tree[Right]);
 }
 
 //O(4*log(N))     at most four nodes are visited in the segment tree.
@@ -64,12 +68,8 @@ ll query(int node, int b, int e, int l, int r) //current node and node's range (
         return INT_MIN; /// *** may change depending on the problem...
     }
 
-    int mid = (b+e)/2;
-    int left = 2*node;
-    int right = left + 1;
-
-    ll x = query(left, b, mid, l, r);
-    ll y = query(right, mid +1, e, l, r);
+    ll x = query(Left, b, Mid, l, r);
+    ll y = query(Right, Mid +1, e, l, r);
 
     return Merge(x,y);
 
@@ -79,20 +79,82 @@ ll query(int node, int b, int e, int l, int r) //current node and node's range (
 void update(int node, int b, int e, int i, ll val) // current node and node's range (begin to end) and update on index i with value val ( arr[i] = val )
 {
     if(i>e || i<b) return;
-    if(b==e){
+    if(b==e)
+    {
         tree[node] = val; /// *** may change depending on the problem...
         return;
     }
-    ll mid=(b+e)/2;
-    ll left=node*2;
-    ll right=left+1;
 
-    update(left,b,mid,i,val);
-    update(right,mid+1,e,i,val);
+    update(Left,b,Mid,i,val);
+    update(Right,Mid+1,e,i,val);
 
 
-    tree[node]=Merge(tree[left],tree[right]);
+    tree[node]=Merge(tree[Left],tree[Right]);
 }
+
+
+
+
+/*
+Lazy Propagation
+1. Lets define a range update operation on segment tree OP. If there is a lazy
+value x in some node u from some updates, its guaranteed that this lazy value
+has been already propagated from each node v in the path from root to u. If
+there is still some lazy value at in a node v in the path from root to u, then
+that is from some later updates which has not been propagated up-to u yet.
+
+2. Let there be multiple type of range updates. Build a struct called LazyStruct
+and keep a lazy variable for each type of update. Note that,
+a) for ASSIGN update, clear each other type of lazy variables.
+b) while handling ADD/SUB/COUNT lazy in a node, first propagate down any ASSIGN
+lazy it already has. This ensures the correct order of the updates.
+*/
+
+
+//O(1)
+void lazyPropagation(int node,int b,int e)  // current node and node's range (b to e)
+{
+    if(lazy[node])
+    {
+        tree[node] += (e-b+1)*lazy[node]; /// *** may change depending on the problem.. //Adding extra sum // for max query  New Max = Max + lazy[node]
+        if(b != e)
+        {
+            lazy[Left] += lazy[node];
+            lazy[Right] += lazy[node];
+        }
+        lazy[node] = 0;
+    }
+}
+
+//O(log(N))
+void updateRange(int node, int b, int e, int i, int j, int val)   // current node and node's range (b to e) and update on index i to j with value val ( arr[i] = arr[i+1] = .. = arr[j]  will be (+= val ) )
+{
+    lazyPropagation(node,b,e);
+    if(b>e) return;   // invalid update query like -> updateRange(10, 5) here b > e
+    else if(b>j || e<i) return;
+    if(b>=i && e<=j)
+    {
+        lazy[node] += val; /// *** may change depending on the problem...
+        lazyPropagation(node,b,e);
+        return;
+    }
+    updateRange(Left,b,Mid,i,j,val);
+    updateRange(Right,Mid+1,e,i,j,val);
+    tree[node] = Merge(tree[Left], tree[Right]);
+}
+
+//O(log(N))
+int queryRange(int node,int b,int e,int i,int j) //current node and node's range (b to e) and query range (i to j)
+{
+    if(b>e) return 0; /// *** may change depending on the problem...
+    else if(b>j || e<i) return 0;   /// *** may change depending on the problem...
+    lazyPropagation(node,b,e);
+    if(b>=i && e <= j) return tree[node];
+    ll p1 = queryRange(Left,b,Mid,i,j);
+    ll p2 = queryRange(Right,Mid+1,e,i,j);
+    return  Merge(p1, p2);                       //p1 + p2; sum query
+}
+
 
 
 void solve_case(int tc)
