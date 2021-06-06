@@ -1,3 +1,5 @@
+///LightOJ geometry picks theorem problem solution
+
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -52,6 +54,7 @@ void solve_case(int tc)
     long double Area = Half_Area/2;
 
     /// We know picks theorem says, A = I + (B/2) - 1; So, I = (A + 1) - (B/2);
+    /// Here A = Polygon Area , I = Internal points, B = Boundary points and all the points are lattice points means point's cordinates are integer.
 
     ll B = 0;
 
