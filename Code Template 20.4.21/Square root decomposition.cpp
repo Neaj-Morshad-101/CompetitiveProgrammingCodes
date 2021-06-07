@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
-int b[100]; // array for storing result for each block
+int b[100]; // array for storing result for each block.  block size = sqrt(n);
+///Range query and range update is possible in O(sqrt(n)) lazy type implementation... watch ash vai class 22 
 
 ///O(n)
 int precalculate(int a[],int n)
