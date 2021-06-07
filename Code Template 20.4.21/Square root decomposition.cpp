@@ -14,6 +14,8 @@ int precalculate(int a[],int n)
             ++current_segment; //
         }
         b[current_segment]+=a[i];
+        
+        /// b[i/segment_size] += a[i]; Only this line is enough.
     }
     return segment_size;
 }
